@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <new>
-#include "C:\Users\Vladislav Atanassov\Documents\Cpp_library_project\LinkedList_Cpp\SinglyLinkedList.h"
+#include "C:\Users\Vladislav Atanassov\Documents\Cpp_library_project\Data_Structures_Implementation_CPP\LinkedList_Cpp\SinglyLinkedList.h"
 #include <set>
 
 template<class T>
@@ -22,11 +22,11 @@ public:
 };
 
 template<class T>
-class BinaryTree : public TreeNode
+class BinaryTree
 {
 public:
     // Variable that holds the first node of the binary tree
-    static TreeNode<T>* treeRoot;
+    TreeNode<T>* treeRoot;
 
     // Variable that holds the number of nodes in the tree     
     int elementCount = 0;
@@ -35,14 +35,14 @@ public:
     BinaryTree(){ treeRoot = nullptr; };
 
     // Parameterized constructor
-    BinaryTree(const T& value) : TreeNode(value), elementCount(1) {}
+    BinaryTree(const T& value) : treeRoot(createNode(value)), elementCount(1) {}
     
     // Function that calls the constructor
     // and checks if the memory is allocated properly
     TreeNode<T>* createNode(const T& data);
 
     // Function that prints in order the binary tree
-    void printInOrder(const TreeNode<T>* root = treeRoot) const;
+    void printInOrder(const TreeNode<T>*) const;
 
     // Function that returns the number
     // of nodes in the binary tree
@@ -54,41 +54,38 @@ public:
 
     // Function to insert element to
     // create a Binary Search Tree
-    TreeNode<T>* insertToBST(const T& data, TreeNode<T>* root = treeRoot);
+    TreeNode<T>* insertToBST(const T& data, TreeNode<T>*);
 
     // Function that performs the 
     // binary search algorithm
-    const TreeNode<T>* binarySearchOfBTS(const T& key, const TreeNode<T>* root = treeRoot) const;
+    const TreeNode<T>* binarySearchOfBTS(const T& key, const TreeNode<T>*) const;
 
     // Function that stores the nodes 
     // with in-oredr traversal in a set
-    void storeinorderInSet(std::set<int>& set, TreeNode<T>* root = treeRoot);
+    void storeinorderInSet(std::set<int>& set, TreeNode<T>*);
     
     // Function that iterates through the list and makes it
     // adds the elements in the right order to be BST
-    void setToBST(std::set<int>& set, TreeNode<T>* root = treeRoot);
+    void setToBST(std::set<int>& set, TreeNode<T>*);
     
     // Copies the elemnts from the already made set and makes in BST
-    void binaryTreeToBST(TreeNode<T>* root = treeRoot);
+    void binaryTreeToBST(TreeNode<T>*);
 
     // Function ot delete the deeepest node
     // in the binary tree
-    TreeNode<T>* deleteDeepestNode(const T& key, TreeNode<T>* root = treeRoot);
+    TreeNode<T>* deleteDeepestNode(const T& key, TreeNode<T>*);
 
     //  TODO: Create the function
     // Function and deletes the first node that has the passed key
-    TreeNode<T>* deleteFirstByKeyNode(const T& key, TreeNode<T>* root = treeRoot);
+    TreeNode<T>* deleteFirstByKeyNode(const T& key, TreeNode<T>*);
 
     // Function that goes recursively through every node 
     // until it reaches the leaf nodes and clears them too
-    void clear(TreeNode<T>* root = treeRoot);
+    void clear(TreeNode<T>*);
 
     // Destructor
-    ~BinaryTree(){ this->clear(); };
+    ~BinaryTree(){ this->clear(treeRoot); };
 };
-
-template<class T>
-TreeNode<T>* BinaryTree<T>::treeRoot = nullptr;
 
 template <class T>
 void BinaryTree<T>::printInOrder(const TreeNode<T>* root) const

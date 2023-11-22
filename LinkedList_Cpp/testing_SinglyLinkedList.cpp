@@ -5,7 +5,7 @@
 // Driver Code
 int main()
 {
-    // Testing Circular Linked List
+    // Testing Singly Linked List
     SinglyLinkedList<std::string> myList("AAA"); 
 
     // Appending elements
