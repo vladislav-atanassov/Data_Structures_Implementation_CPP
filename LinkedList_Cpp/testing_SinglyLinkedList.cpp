@@ -42,6 +42,12 @@ int main()
     // Printing elements after deletion
     myList.print();
 
+    // Sort the elements
+    myList.insertionSort(std::less<std::string>());
+    
+    // Printing the elements after sorting
+    myList.print();
+
     // Clearing the list
     myList.clear();
 

@@ -8,9 +8,9 @@ template<class T>
 class CircularLinkedList : public SinglyLinkedList<T>, public ListNode<T>
 {
 private:
-    ListNode<T>* traverseToTail(ListNode<T>* head)
+    ListNode<T>* traverseToTail(ListNode<T>* cl_head)
     {
-        ListNode<T>* temp = head;
+        ListNode<T>* temp = cl_head;
 
         while(temp->next != this->head)
         {
@@ -20,18 +20,19 @@ private:
         return temp;
     }
 
-public:
+public: 
+
     int elementCount = 0;
 
     CircularLinkedList() : SinglyLinkedList<T>() {}
 
     CircularLinkedList(const T& value) : SinglyLinkedList<T>(value) {}
 
-    void append(const T& data) override;
+    void append(const T& newData) override;
     
-    void push(const T& data) override;
+    void push(const T& newData) override;
     
-    void insert(const T& data, int index) override;
+    void insert(const T& newData, int index) override;
     
     void pop(void) override;
     
@@ -127,9 +128,9 @@ void CircularLinkedList<T>::pull(void)
 }
 
 template<class T>
-void CircularLinkedList<T>::append(const T& data)
+void CircularLinkedList<T>::append(const T& newData)
 {
-    ListNode<T>* newNode = this->createNode(data);
+    ListNode<T>* newNode = this->createNode(newData);
 
     if(!this->head)
     {
@@ -156,9 +157,9 @@ T& CircularLinkedList<T>::tail(void)
 }
 
 template<class T>
-void CircularLinkedList<T>::push(const T& data)
+void CircularLinkedList<T>::push(const T& newData)
 {
-    ListNode<T>* newNode = this->createNode(data);
+    ListNode<T>* newNode = this->createNode(newData);
 
     if(!this->head)
     {
@@ -175,25 +176,25 @@ void CircularLinkedList<T>::push(const T& data)
 }
 
 template<class T>
-void CircularLinkedList<T>::insert(const T& data, int index)
+void CircularLinkedList<T>::insert(const T& newData, int index)
 {
     this->error_validation(index, false);
 
     if(index == (this->size() - 1))
     {
-        this->append(data);
+        this->append(newData);
         return;
     }
     else if (index == 0)
     {
-        this->push(data);
+        this->push(newData);
         return;
     }
 
     ListNode<T>* temp1 = this->head;
     ListNode<T>* temp2 = nullptr;
 
-    ListNode<T>* newNode = this->createNode(data);
+    ListNode<T>* newNode = this->createNode(newData);
 
     for(; index > 0; index--)
     {
@@ -211,13 +212,13 @@ void CircularLinkedList<T>::print(void) const
     if(this->empty())
         return;
 
-    std::cout << "Elements of the list are: " << std::endl;
+    std::cout << "Elements of the list are: ";
 
     ListNode<T>* temp = this->head;
 
     do
     {
-        std::cout << temp->data << std::endl;
+        std::cout << temp->data << " ";
         temp = temp->next;
     } while(temp != this->head);
 
@@ -234,12 +235,12 @@ void CircularLinkedList<T>::clear(void)
 
     do
     {
-        ListNode<T>* next = temp->next;
+        ListNode<T>* nextNode = temp->next;
         temp->next = nullptr;
 
         delete temp;
 
-        temp = next;
+        temp = nextNode;
     } while(temp != this->head);
 
     this->head = nullptr;

@@ -149,6 +149,37 @@ public:
 	// for the linked list
 	ListNode<T>* insertionSort(void);
 
+	// Function to perform insertion sort with a custom comparison function
+    template <typename Compare>
+    void insertionSort(Compare comp) {
+        if (head == nullptr || head->next == nullptr)
+            return;
+
+        ListNode<T>* sortedHead = nullptr; // Initialize sorted list as empty
+
+        while (head != nullptr) {
+            ListNode<T>* current = head;
+            head = head->next;
+
+            if (sortedHead == nullptr || comp(current->data, sortedHead->data)) {
+                // Insert at the beginning of the sorted list
+                current->next = sortedHead;
+                sortedHead = current;
+            } else {
+                ListNode<T>* temp = sortedHead;
+
+                while (temp->next != nullptr && !comp(current->data, temp->next->data)) {
+                    temp = temp->next;
+                }
+
+                current->next = temp->next;
+                temp->next = current;
+            }
+        }
+
+        head = sortedHead; // Update head to point to the sorted list
+    }
+
 	// Function that frees all of the 
 	// allocated memory
 	virtual void clear(void);
@@ -483,12 +514,12 @@ void SinglyLinkedList<T>::print(void) const
 	if(this->empty())
 		return;
 
-	std::cout << "Elements of the list are: " << std::endl;
+	std::cout << "Elements of the list are: ";;
 
 	// Traverse the list
 	for(auto& item : *this)
 	{
-		std::cout << item << std::endl;
+		std::cout << item << " ";
 	}
 
 	std::cout << std::endl;
